@@ -9,8 +9,10 @@ class App extends Component {
     notesList: [],
     currentItem: {
       key: '',
+      value: '',
+      edit: false,
     },
-    value: '',
+    db: '',
   }
 
   handleAddNote = (e) => {
@@ -24,35 +26,81 @@ class App extends Component {
 
     this.setState({
       notesList: newNotesList,
-      currentItem: {key: Date.now()},
+      currentItem: {
+        key: Date.now(),
+        value: e.target.value,
+        edit: false,
+      },
     })
   }
 
-  handleWrite = (index, e) => {
+  handleAddNote = (e) => {
+    e.preventDefault();
 
-    const { notesList } = this.state;
+    this.setState({
+      currentItem: {
+        key: Date.now(),
+        edit: false,
+      }
+    });
 
-    const ind = notesList.findIndex( element => {
-      return (notesList.indexOf(element) === index);
+    const { notesList, currentItem } = this.state;
+
+    const newItem = currentItem;
+    notesList.push(newItem);
+
+    this.setState({
+      notesList: notesList,
+      currentItem: {
+        value: '',
+        edit: false,
+      }
     })
-
-    const item = Object.assign({}, notesList[ind]);
-    item.name = e.target.value
-
-    this.setState({value: e.target.value});
   }
+
+  handleSetNote = (e) => {
+    e.preventDefault();
+    this.setState({
+      currentItem: {
+        value: e.target.value,
+        edit: false,
+      }
+    })
+  }
+
+  handleEditNote = (ind) => {
+
+    const { notesList } = this.state
+    const { edit } = this.state.currentItem
+
+
+    notesList.filter((el, elInd) => {
+      if (ind === elInd){
+        if ( !edit ){
+          this.setState({
+            currentItem: {
+              edit: true,
+            }
+          })
+        } else {
+          this.setState({
+            currentItem: {
+              edit: false,
+            }
+          })
+        }
+        console.log(this.state);
+      }
+    })
+    // console.log(ind);
+  }
+
 
   render() {
-    const { notesList, value } = this.state
     return (
       <div className="App">
-        <MenuPanel addNote={this.handleAddNote}/>
-        <NotesListElements
-          entries={notesList}
-          value={value}
-
-          handleWrite={this.handleWrite}
-        />
+        <MenuPanel {...this.state} addNote={this.handleAddNote} setNote={this.handleSetNote}/>
+        <NotesListElements {...this.state} editNote={(ind) => this.handleEditNote(ind)}/>
       </div>
     );
   }

@@ -1,11 +1,12 @@
 import React from 'react';
 
-const MenuPanel = ({ addNote }) => {
+const MenuPanel = ({ notesList, currentItem, addNote, setNote }) => {
   return (
-    <div>
+    <form onSubmit={addNote}>
       <header>ReactJs Notes</header>
-      <button onClick={addNote}>+</button>
-    </div>
+      <input type="text" value={currentItem.value} onChange={setNote} />
+      <input type="submit" value="+"/>
+    </form>
   )
 }
 
