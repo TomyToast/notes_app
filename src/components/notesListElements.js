@@ -1,29 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const NotesListElements = ({ notesList, currentItem, editNote }) => {
-    // console.log(notesList)
-    const elements = notesList.map( (element, index) => {
-        return (
-            <li
-            onClick={() => editNote(index)}
-            key={index}>
-                <div
-                    contentEditable={element.edit}
-                >
-                {element.value}
-                </div>
-                <div>{element.key}</div>
-            </li>
-        )
-    })
+class NotesListElements extends Component {
 
-  return (
-    <>
-        <ul>
-            {elements}
-        </ul>
-    </>
-  )
+  createNote = item => {
+      return (
+        <li
+            key={item.key}
+            onClick={() => this.props.deleteItem(item.key)}
+        >
+            {item.value}
+        </li>
+    )
+  }
+  render() {
+    const todoEntries = this.props.entries
+    const elements = todoEntries.map(this.createNote)
+
+    return <ul>{console.log(elements)}</ul>
+    }
 }
 
 export default NotesListElements;
