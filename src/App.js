@@ -18,7 +18,7 @@ constructor(props){
 
   handleInput = e => {
     const itemText = e.target.value;
-    const currentItem = { value: itemText, key: Date.now() }
+    const currentItem = { key: Date.now(), value: itemText, edit: false }
     this.setState({
       currentItem,
     })
@@ -30,26 +30,33 @@ constructor(props){
     const newItem = this.state.currentItem;
 
     if (newItem.value !== '') {
-      console.log(newItem)
-      const items = [...this.state.notesList, newItem]
+      let items = [...this.state.notesList, newItem]
+
       this.setState({
-        noteList: items,
-        currentItem: { key: '', value: '', edit: false }
+        notesList: items,
+        currentItem: { key: '', value: '', edit: false, }
       })
     } else {
       alert('add note!');
     }
+    console.log(this.state.notesList)
   }
   // refering to input element in MenuPanel component
   inputElement = React.createRef();
 
   deleteItem = key => {
-    const filteredItems = this.state.items.filter( item => {
+    const filteredItems = this.state.notesList.filter( item => {
       return item.key !== key
     })
     this.setState({
-      items: filteredItems,
+      notesList: filteredItems,
     })
+    console.log(this.state.notesList)
+  }
+
+  handleEditItem = (key) => {
+
+    console.log(key)
   }
 
   render() {
@@ -64,6 +71,7 @@ constructor(props){
         <NotesListElements
           entries={this.state.notesList}
           deleteItem={this.deleteItem}
+          editItem={this.handleEditItem}
         />
       </div>
     )
