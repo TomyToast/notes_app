@@ -6,20 +6,20 @@ class MenuPanel extends Component {
     this.props.inputElement.current.focus();
   }
 
-  render(){
+  render() {
     return (
-      <div>
-      <form onSubmit={this.props.addItem}>
-        <header>ReactJs Notes</header>
-        <input
-          placeholder="Task"
-          ref={this.props.inputElement}
-          value={this.props.currentItem.value}
-          onChange={this.props.handleInput}
-        />
-        <button type="submit" >+</button>
-      </form>
-      </div>
+      <>
+        <form onSubmit={this.props.addItem}>
+          <header>ReactJs Notes</header>
+          <input
+            placeholder="Task"
+            ref={this.props.inputElement}
+            value={this.props.currentItem.value}
+            onChange={this.props.handleInput}
+          />
+          <button type="submit" >+</button>
+        </form>
+      </>
     )
   }
 }

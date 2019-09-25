@@ -4,24 +4,31 @@ import MenuPanel from '../src/components/MenuPanel';
 import './App.css';
 
 class App extends Component {
-constructor(props){
-  super(props)
-  this.state = {
-    notesList: [],
-    currentItem: {
-      key: '',
-      value: '',
-      edit: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      notesList: [],
+      currentItem: {
+        key: '',
+        value: '',
+        edit: true,
       },
     }
   }
 
+  // refering to input element in MenuPanel component
+  inputElement = React.createRef();
+
   handleInput = e => {
     const itemText = e.target.value;
-    const currentItem = { key: Date.now(), value: itemText, edit: false }
+    const currentItem = { key: Date.now(), value: itemText }
     this.setState({
       currentItem,
     })
+  }
+
+  handleEditInput = e => {
+    console.log(e.target)
   }
 
   addItem = e => {
@@ -34,18 +41,16 @@ constructor(props){
 
       this.setState({
         notesList: items,
-        currentItem: { key: '', value: '', edit: false, }
+        currentItem: { key: '', value: '' }
       })
     } else {
       alert('add note!');
     }
     console.log(this.state.notesList)
   }
-  // refering to input element in MenuPanel component
-  inputElement = React.createRef();
 
-  deleteItem = key => {
-    const filteredItems = this.state.notesList.filter( item => {
+  deleteItem = (key) => {
+    const filteredItems = this.state.notesList.filter(item => {
       return item.key !== key
     })
     this.setState({
@@ -54,10 +59,23 @@ constructor(props){
     console.log(this.state.notesList)
   }
 
-  handleEditItem = (key) => {
+  block = (e) => {
+    e.preventDefault();
+  }
 
+  editItem = (key) => {
+    // this.state.notesList.filter(item => {
+    //   const { value } = this.textareaElement.current;
+    //
+    //   return item.key === key
+    // })
+
+    // this.setState({
+    //   currentItem: { edit: !this.state.edit },
+    // })
     console.log(key)
   }
+
 
   render() {
     return (
@@ -70,8 +88,11 @@ constructor(props){
         />
         <NotesListElements
           entries={this.state.notesList}
+          textareaElement={this.textareaElement}
+          handleTextarea={this.handleTextarea}
           deleteItem={this.deleteItem}
-          editItem={this.handleEditItem}
+          editItem={this.editItem}
+          block={this.block}
         />
       </div>
     )

@@ -1,51 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import DeleteBtn from './deleteBtn';
+import EditBtn from './editBtn';
+import getTimeHMS from '../functions/getTimeHMS';
+import getDateYMD from '../functions/getDateYMD';
 
 class NotesListElements extends Component {
 
-  createNote = item => {
-      const second = new Date.getSeconds();
-      return (
-        <li
-            key={item.key}
-        >
-            <div>
-                <button
-                    onClick={() => this.props.deleteItem(item.key)}
-                >Delete</button>
-                <button
-                    onClick={() => this.props.editItem(item.key)}
-                >Edit</button>
-            </div>
-            <div>
-                <textarea
-                value={item.value}/>
-            </div>
-            <div>
-                {`
-                ${new Date().getFullYear()}
-                -
-                ${(new Date().getMonth() < 10) ? `0${new Date().getMonth()}` : new Date().getMonth()}
-                -
-                ${(new Date().getDate() < 10) ? `0${new Date().getDate()}` : new Date().getDate()}
-                `}
-            </div>
-            <div>
-                {`at:
-                ${(new Date().getHours() < 10) ? `0${new Date().getHours()}` : new Date().getHours()}
-                :
-                ${(new Date().getMinutes() < 10) ? `0${new Date().getMinutes()}` : new Date().getMinutes()}
-                :
-                ${(second < 10) ? `0${second}` : second}
-                `}
-            </div>
-        </li>
-    )
-  }
-  render() {
-    const todoEntries = this.props.entries
-    const elements = todoEntries.map(this.createNote)
+    render() {
+        const todoEntries = this.props.entries
+        const elements = todoEntries.map((item, index) => {
+            return (
+                <li key={item.key}>
+                    <div>
+                        <DeleteBtn deleteItem={this.props.deleteItem} item={item} />
+                        <EditBtn editItem={this.props.editItem} item={item}
+                            block={this.block} />
+                    </div>
+                    <div>
+                        <div
+                            // onChange={() => this.props.handleTextarea}
 
-    return <ul>{elements}</ul>
+                            ref={this.props.textareaElement} >
+                            {item.value}
+                        </div>
+                    </div>
+                    <div>{getDateYMD()}</div>
+                    <div>{getTimeHMS()}</div>
+
+                </li>
+            )
+        })
+
+        return <ul>{elements}</ul>
     }
 }
 
