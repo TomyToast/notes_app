@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 
 class editBtn extends Component {
-    componentDidUpdate(prevProps) {
-        console.log(prevProps.item);
+    componentDidUpdate() {
+        this.props.inputEditElement.current.focus();
     }
 
     render() {
         return (
-            <form onSubmit={this.block}>
+            <form onSubmit={(e) => { e.preventDefault(); this.props.editItem(this.props.item.key) }}>
                 <input
                     placeholder="Edit me..."
-                    onChange={this.props.handleInput}
+                    onChange={this.props.handleEditInput}
+                    ref={this.props.inputEditElement}
                 />
-                <button type="submit" onClick={(e) => { e.preventDefault(); this.props.editItem(this.props.item.key) }}>Edit
+                <button type="submit" >Edit
                     </button>
             </form>
         )

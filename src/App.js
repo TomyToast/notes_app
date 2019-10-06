@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NotesListElements from '../src/components/notesListElements';
 import MenuPanel from '../src/components/MenuPanel';
 import './App.css';
+import getTimeHMS from './functions/getTimeHMS';
 
 class App extends Component {
   constructor(props) {
@@ -11,13 +12,14 @@ class App extends Component {
       currentItem: {
         key: '',
         value: '',
-        edit: true,
       },
+      newValue: ''
     }
   }
 
   // refering to input element in MenuPanel component
   inputElement = React.createRef();
+  inputEditElement = React.createRef();
 
   handleInput = e => {
     const itemText = e.target.value;
@@ -28,7 +30,13 @@ class App extends Component {
   }
 
   handleEditInput = e => {
-    console.log(e.target)
+    const newValue = e.target.value;
+
+    this.setState({
+      newValue: newValue
+    })
+
+    console.log(this.state.newValue)
   }
 
   addItem = e => {
@@ -56,30 +64,61 @@ class App extends Component {
     this.setState({
       notesList: filteredItems,
     })
-    console.log(this.state.notesList)
   }
 
-  block = (e) => {
-    e.preventDefault();
-  }
 
   editItem = (key) => {
-    // this.state.notesList.filter(item => {
-    //   const { value } = this.textareaElement.current;
-    //
-    //   return item.key === key
-    // })
 
-    // this.setState({
-    //   currentItem: { edit: !this.state.edit },
-    // })
-    console.log(key)
+    const { notesList, newValue } = this.state
+
+    //checking if newValue is empty
+
+    if (newValue === '') {
+      return alert('newValue is empty!!!')
+    }
+
+    //looking for index of clicked element
+
+    const thatElement = notesList.map((item, index) => {
+      if (item.key === key) {
+        return index
+      }
+    });
+
+    let myIndex;
+
+    for (let i = 0; i <= thatElement.length; i++) {
+      if (thatElement[i] !== undefined) {
+        myIndex = thatElement[i]
+      }
+    };
+
+    // cutting and connecting updated noteList
+
+    const preList = notesList.slice(0, myIndex)
+    const list = notesList.slice(myIndex)
+    const element = list.shift();
+    const valueOfOldValue = newValue;
+
+    element.value = valueOfOldValue;
+
+    list.unshift(element);
+
+    const newList = [...preList, ...list];
+
+    this.setState({
+      notesList: newList,
+      newValue: ''
+    })
+
+    // cleaning value of input in editBtn form
+    this.inputEditElement.current.value = null;
   }
 
 
   render() {
     return (
-      <div className="App">
+      <div className="App" >
         <MenuPanel
           addItem={this.addItem}
           inputElement={this.inputElement}
@@ -88,11 +127,11 @@ class App extends Component {
         />
         <NotesListElements
           entries={this.state.notesList}
-          textareaElement={this.textareaElement}
-          handleTextarea={this.handleTextarea}
+          inputEditElement={this.inputEditElement}
+          handleEditInput={this.handleEditInput}
           deleteItem={this.deleteItem}
           editItem={this.editItem}
-          block={this.block}
+          createdAt={getTimeHMS}
         />
       </div>
     )

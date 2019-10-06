@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import DeleteBtn from './deleteBtn';
 import EditBtn from './editBtn';
-import getTimeHMS from '../functions/getTimeHMS';
-import getDateYMD from '../functions/getDateYMD';
 
 class NotesListElements extends Component {
 
@@ -13,19 +11,19 @@ class NotesListElements extends Component {
                 <li key={item.key}>
                     <div>
                         <DeleteBtn deleteItem={this.props.deleteItem} item={item} />
-                        <EditBtn editItem={this.props.editItem} item={item}
-                            block={this.block} />
+                        <EditBtn
+                            editItem={this.props.editItem} handleEditInput={this.props.handleEditInput}
+                            inputEditElement={this.props.inputEditElement}
+                            value={item.value}
+                            item={item} />
                     </div>
                     <div>
-                        <div
-                            // onChange={() => this.props.handleTextarea}
-
+                        <div contentEditable={false}
                             ref={this.props.textareaElement} >
                             {item.value}
                         </div>
                     </div>
-                    <div>{getDateYMD()}</div>
-                    <div>{getTimeHMS()}</div>
+                    <div>{this.props.createdAt()}</div>
 
                 </li>
             )
