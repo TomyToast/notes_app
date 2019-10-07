@@ -17,11 +17,27 @@ class App extends Component {
     }
   }
 
+  // Checking if localStorage exist
+
+  componentWillMount() {
+    localStorage.getItem('noteList') && this.setState({
+      notesList: JSON.parse(localStorage.getItem('noteList'))
+    })
+  }
+
+  // Saving noteList in to the LocalStorage
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('noteList', JSON.stringify(nextState.notesList));
+    localStorage.setItem('noteListData', Date.now());
+  }
+
   // refering to input element in MenuPanel component
   inputElement = React.createRef();
   inputEditElement = React.createRef();
 
   handleInput = e => {
+    e.preventDefault();
     const itemText = e.target.value;
     const currentItem = { key: Date.now(), value: itemText }
     this.setState({
@@ -30,11 +46,13 @@ class App extends Component {
   }
 
   handleEditInput = e => {
+    e.preventDefault();
     const newValue = e.target.value;
 
     this.setState({
       newValue: newValue
     })
+
 
     console.log(this.state.newValue)
   }
@@ -112,9 +130,13 @@ class App extends Component {
     })
 
     // cleaning value of input in editBtn form
-    this.inputEditElement.current.value = null;
+    this.cancelCourse();
   }
 
+  cancelCourse = () => {
+    const inputsToReset = document.querySelectorAll('.formToEdit')
+    inputsToReset.forEach(item => item.reset());
+  }
 
   render() {
     return (

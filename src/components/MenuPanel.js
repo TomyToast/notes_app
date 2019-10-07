@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 //ComponentDidUpdate is called to focus on the input box referred by the inputElementreference. The component is updated on submitting the form.
 class MenuPanel extends Component {
 
-  componentDidUpdate() {
-    this.props.inputElement.current.focus();
-  }
+  // componentDidUpdate() {
+  //   this.props.inputElement.current.focus();
+  // }
 
   render() {
     return (

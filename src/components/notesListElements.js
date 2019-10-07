@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import DeleteBtn from './deleteBtn';
-import EditBtn from './editBtn';
+import SingleNoteListElement from './singleNoteListElement';
 
 class NotesListElements extends Component {
 
@@ -9,22 +8,14 @@ class NotesListElements extends Component {
         const elements = todoEntries.map((item, index) => {
             return (
                 <li key={item.key}>
-                    <div>
-                        <DeleteBtn deleteItem={this.props.deleteItem} item={item} />
-                        <EditBtn
-                            editItem={this.props.editItem} handleEditInput={this.props.handleEditInput}
-                            inputEditElement={this.props.inputEditElement}
-                            value={item.value}
-                            item={item} />
-                    </div>
-                    <div>
-                        <div contentEditable={false}
-                            ref={this.props.textareaElement} >
-                            {item.value}
-                        </div>
-                    </div>
-                    <div>{this.props.createdAt()}</div>
-
+                    <SingleNoteListElement
+                        deleteItem={this.props.deleteItem}
+                        editItem={this.props.editItem} handleEditInput={this.props.handleEditInput}
+                        inputEditElement={this.props.inputEditElement}
+                        createdAt={this.props.createdAt}
+                        value={item.value}
+                        item={item}
+                    />
                 </li>
             )
         })
