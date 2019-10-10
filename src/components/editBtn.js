@@ -6,7 +6,7 @@ class editBtn extends Component {
         return (
             <form className="formToEdit" onSubmit={(e) => { e.preventDefault(); this.props.editItem(this.props.item.key) }}>
                 <textarea
-                    placeholder="Edit me..."
+                    placeholder="Try MarkDown here..."
                     onChange={this.props.handleEditInput}
                 />
                 <button type="submit" >Edit

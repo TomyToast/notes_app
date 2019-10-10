@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NotesListElements from '../src/components/notesListElements';
 import MenuPanel from '../src/components/MenuPanel';
 import './App.css';
-import getTimeHMS from './functions/getTimeHMS';
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +11,16 @@ class App extends Component {
       currentItem: {
         key: '',
         value: '',
+        createdAt: {
+          year: '',
+          month: '',
+          day: '',
+          hour: '',
+          minutes: '',
+          seconds: ''
+        },
+        status: '',
+
       },
       newValue: ''
     }
@@ -39,7 +48,19 @@ class App extends Component {
   handleInput = e => {
     e.preventDefault();
     const itemText = e.target.value;
-    const currentItem = { key: Date.now(), value: itemText }
+    const currentItem = {
+      key: Date.now(),
+      value: itemText,
+      createdAt: {
+        year: new Date().getFullYear(),
+        month: new Date().getMonth(),
+        day: new Date().getDate(),
+        hour: new Date().getHours(),
+        minutes: new Date().getMinutes(),
+        seconds: new Date().getSeconds()
+      },
+      status: 'added'
+    }
     this.setState({
       currentItem,
     })
@@ -54,7 +75,6 @@ class App extends Component {
     })
 
 
-    console.log(this.state.newValue)
   }
 
   addItem = e => {
@@ -67,12 +87,14 @@ class App extends Component {
 
       this.setState({
         notesList: items,
-        currentItem: { key: '', value: '' }
+        currentItem: {
+          key: '',
+          value: '',
+        }
       })
     } else {
       alert('add note!');
     }
-    console.log(this.state.notesList)
   }
 
   deleteItem = (key) => {
@@ -97,16 +119,12 @@ class App extends Component {
 
     //looking for index of clicked element
 
-    const thatElement = notesList.map((item, index) => {
-      if (item.key === key) {
-        return index
-      }
-    });
+    const thatElement = notesList.map((item, index) => item.key === key ? index : undefined);
 
     let myIndex;
 
     for (let i = 0; i <= thatElement.length; i++) {
-      if (thatElement[i] !== undefined) {
+      if ((thatElement[i] !== undefined)) {
         myIndex = thatElement[i]
       }
     };
@@ -115,10 +133,23 @@ class App extends Component {
 
     const preList = notesList.slice(0, myIndex)
     const list = notesList.slice(myIndex)
+
     const element = list.shift();
+
     const valueOfOldValue = newValue;
+    const updatedAt = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      day: new Date().getDate(),
+      hour: new Date().getHours(),
+      minutes: new Date().getMinutes(),
+      seconds: new Date().getSeconds()
+    };
+    const newStatus = 'updated'
 
     element.value = valueOfOldValue;
+    element.createdAt = updatedAt;
+    element.status = newStatus;
 
     list.unshift(element);
 
@@ -126,7 +157,7 @@ class App extends Component {
 
     this.setState({
       notesList: newList,
-      newValue: ''
+      newValue: '',
     })
 
     // cleaning value of input in editBtn form
@@ -153,7 +184,6 @@ class App extends Component {
           handleEditInput={this.handleEditInput}
           deleteItem={this.deleteItem}
           editItem={this.editItem}
-          createdAt={getTimeHMS}
         />
       </div>
     )

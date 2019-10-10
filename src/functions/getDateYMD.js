@@ -1,14 +1,13 @@
 import React from 'react';
-function getDateYMD() {
-    const date = new Date();
+function getDateYMD(year, month, day) {
     return (
         <>
             {`
-            ${date.getFullYear()}
+            ${year}
             -
-            ${(date.getMonth() < 10) ? `0${date.getMonth()}` : date.getMonth()}
+            ${(month < 10) ? `0${month}` : month}
             -
-            ${(date.getDate() < 10) ? `0${date.getDate()}` : date.getDate()}
+            ${(day < 10) ? `0${day}` : day}
             `}
         </>
     )

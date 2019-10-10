@@ -1,5 +1,4 @@
 # 1. Notes App
-### Tier: 1 — Beginner
 
 ## Description: Create and store your notes for a later purpose!
 
@@ -11,4 +10,4 @@
 
 ### Bonus features
 - [x] User can create and edit a note in Markdown format. On save it        will convert Markdown to HTML
-- [ ] User can see the date when he created the note
+- [x] User can see the date when he created and updated the note
