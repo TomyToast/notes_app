@@ -5,18 +5,16 @@ class MenuPanel extends Component {
 
   render() {
     return (
-      <>
-        <form onSubmit={this.props.addItem}>
-          <header>ReactJs Notes</header>
-          <input
-            placeholder="Task"
-            ref={this.props.inputElement}
-            value={this.props.currentItem.value}
-            onChange={this.props.handleInput}
-          />
-          <button type="submit" >+</button>
-        </form>
-      </>
+      <form className="MenuPanel" onSubmit={this.props.addItem}>
+        <header>ReactJs Notes</header>
+        <input
+          placeholder="Task"
+          ref={this.props.inputElement}
+          value={this.props.currentItem.value}
+          onChange={this.props.handleInput}
+        />
+        <button type="submit" >+</button>
+      </form>
     )
   }
 }

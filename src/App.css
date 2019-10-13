@@ -1,0 +1,73 @@
+.App {
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.MenuPanel {
+    width: 40%;
+    min-width: 20rem;
+    margin: 2rem auto;
+    border: 1px solid black;
+}
+
+.NotesElementList {
+    width: 40%;
+    min-width: 20rem;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 2px solid black;
+}
+
+.NotesElement{
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    flex-direction: column;
+
+    margin: 1rem auto;
+    border: 1px solid black;
+}
+
+.MarkDownElement {
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    width: 90%;
+    background: #7C7C7C;
+    margin: 1rem;
+}
+
+.MarkDownText {
+    max-width: 100%;
+    background: lightcyan;
+}
+
+.MarkDownParagraph{
+    max-width: 85%;
+    white-space: pre;
+}
+
+.CreatedAt {
+    width: 25%;
+    font-size: .75rem;
+    padding: .5rem;
+    /* margin-left: 80%; */
+}
+
+.FormToEdit {
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    flex-direction: column;
+
+    width: 70%;
+    margin: 1rem auto;
+}
+
+.EditBtn {
+    width: 10%;
+    background: #0E94A0;
+    border: 1px solid black;
+}

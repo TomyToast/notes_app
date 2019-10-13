@@ -3,6 +3,8 @@ import NotesListElements from '../src/components/notesListElements';
 import MenuPanel from '../src/components/MenuPanel';
 import './App.css';
 
+import DateCreator from '../src/utils/dateCreator';
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -11,14 +13,7 @@ class App extends Component {
       currentItem: {
         key: '',
         value: '',
-        createdAt: {
-          year: '',
-          month: '',
-          day: '',
-          hour: '',
-          minutes: '',
-          seconds: ''
-        },
+        createdAt: new DateCreator(),
         status: '',
 
       },
@@ -51,14 +46,7 @@ class App extends Component {
     const currentItem = {
       key: Date.now(),
       value: itemText,
-      createdAt: {
-        year: new Date().getFullYear(),
-        month: new Date().getMonth(),
-        day: new Date().getDate(),
-        hour: new Date().getHours(),
-        minutes: new Date().getMinutes(),
-        seconds: new Date().getSeconds()
-      },
+      createdAt: new DateCreator().addDate(),
       status: 'added'
     }
     this.setState({
@@ -137,14 +125,7 @@ class App extends Component {
     const element = list.shift();
 
     const valueOfOldValue = newValue;
-    const updatedAt = {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth(),
-      day: new Date().getDate(),
-      hour: new Date().getHours(),
-      minutes: new Date().getMinutes(),
-      seconds: new Date().getSeconds()
-    };
+    const updatedAt = new DateCreator().addDate();
     const newStatus = 'updated'
 
     element.value = valueOfOldValue;
@@ -165,7 +146,7 @@ class App extends Component {
   }
 
   cancelCourse = () => {
-    const inputsToReset = document.querySelectorAll('.formToEdit')
+    const inputsToReset = document.querySelectorAll('.FormToEdit')
     inputsToReset.forEach(item => item.reset());
   }
 

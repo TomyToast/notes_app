@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import DeleteBtn from './deleteBtn';
 import EditBtn from './editBtn';
 import MarkDownElement from './markDownElement';
-import CreatedAt from './cretedAt';
 
 class singleNoteListElement extends Component {
     render() {
@@ -15,8 +14,7 @@ class singleNoteListElement extends Component {
                     inputEditElement={this.props.inputEditElement}
                     value={this.props.value}
                     item={this.props.item} />
-                <MarkDownElement mdValue={this.props.value} />
-                <CreatedAt timeOfCreation={this.props.item.createdAt} status={this.props.item.status} />
+                <MarkDownElement mdValue={this.props.value} status={this.props.item.status} timeOfCreation={this.props.item.createdAt} />
             </>
         )
     }

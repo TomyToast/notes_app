@@ -7,7 +7,7 @@ class NotesListElements extends Component {
         const todoEntries = this.props.entries
         const elements = todoEntries.map((item, index) => {
             return (
-                <li key={item.key}>
+                <li key={item.key} className="NotesElement">
                     <SingleNoteListElement
                         deleteItem={this.props.deleteItem}
                         editItem={this.props.editItem} handleEditInput={this.props.handleEditInput}
@@ -20,7 +20,7 @@ class NotesListElements extends Component {
             )
         })
 
-        return <ul>{elements}</ul>
+        return <ul className="NotesElementList">{elements}</ul>
     }
 }
 
