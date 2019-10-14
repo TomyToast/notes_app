@@ -28,8 +28,4 @@ class DateCreator {
     }
 }
 
-const newOne = new DateCreator()
-
-console.log(newOne.addDate())
-
 export default DateCreator;

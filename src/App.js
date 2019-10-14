@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NotesListElements from '../src/components/notesListElements';
 import MenuPanel from '../src/components/MenuPanel';
-import './App.css';
+import { Container, Row, Col } from 'reactstrap';
 
 import DateCreator from '../src/utils/dateCreator';
 
@@ -23,7 +23,7 @@ class App extends Component {
 
   // Checking if localStorage exist
 
-  componentWillMount() {
+  componentDidMount() {
     localStorage.getItem('noteList') && this.setState({
       notesList: JSON.parse(localStorage.getItem('noteList'))
     })
@@ -31,7 +31,7 @@ class App extends Component {
 
   // Saving noteList in to the LocalStorage
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     localStorage.setItem('noteList', JSON.stringify(nextState.notesList));
     localStorage.setItem('noteListData', Date.now());
   }
@@ -152,21 +152,28 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" >
-        <MenuPanel
-          addItem={this.addItem}
-          inputElement={this.inputElement}
-          handleInput={this.handleInput}
-          currentItem={this.state.currentItem}
-        />
-        <NotesListElements
-          entries={this.state.notesList}
-          inputEditElement={this.inputEditElement}
-          handleEditInput={this.handleEditInput}
-          deleteItem={this.deleteItem}
-          editItem={this.editItem}
-        />
-      </div>
+      <Container>
+        <Row>
+          <Col sm="12" md={{ size: 6, offset: 3 }}>
+            <div className="App" >
+              <MenuPanel
+                addItem={this.addItem}
+                inputElement={this.inputElement}
+                handleInput={this.handleInput}
+                currentItem={this.state.currentItem}
+              />
+              <NotesListElements
+                entries={this.state.notesList}
+                inputEditElement={this.inputEditElement}
+                handleEditInput={this.handleEditInput}
+                deleteItem={this.deleteItem}
+                editItem={this.editItem}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
     )
   }
 }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 class deleteBtn extends Component {
     render() {
         return (
-            <button onClick={() => this.props.deleteItem(this.props.item.key)}>
+            <Button color="danger" onClick={() => this.props.deleteItem(this.props.item.key)}>
                 Delete
-            </button>
+            </Button>
         )
     }
 }

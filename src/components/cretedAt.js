@@ -9,7 +9,7 @@ class CreatedAt extends Component {
         const { seconds, minutes, hour, day, month, year } = this.props.timeOfCreation;
 
         return (
-            <div className="CreatedAt">
+            <div className="font-italic">
                 {`${this.props.status} at: `} <br />
                 {getTimeHMS(hour, minutes, seconds)} <br />
                 {getDateYMD(year, month, day)}
